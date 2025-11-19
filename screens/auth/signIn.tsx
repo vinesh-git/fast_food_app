@@ -1,14 +1,32 @@
 import React from 'react'
 import { Dimensions, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native'
-import header from '../../assets/images/headerpart.png'
-import headerlogo from '../../assets/images/headerlogo.png'
 import CustomInput from '@/components/Input/CustomInput'
 import CustomButton from '@/components/Button/CustomButton'
-import { Link, useNavigation } from '@react-navigation/native'
-import signUp from './signUp'
+import { useNavigation } from '@react-navigation/native'
 import TopSection from '@/components/AuthPage/TopSection'
 function SignIn() {
     const navigation = useNavigation<any>();
+    const [form,setForm] = React.useState({
+        email : '',
+        password : ''
+    });
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const submit = async () => {
+        if (isSubmitting) return;
+        if(!form.email || !form.password){
+            alert("Please fill all the fields");
+            return;
+        }
+        setIsSubmitting(true);
+        try {
+            //login logic here
+            navigation.replace("tabs",{ screen : "Home"});
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ backgroundColor: '#ffffff', flex: 1 }}>
             <ScrollView style={{}} keyboardShouldPersistTaps="handled">
@@ -16,22 +34,21 @@ function SignIn() {
                 <View style={{ padding: 15, gap: 20 }}>
                     <CustomInput
                         placeholder='Enter your email'
-                        value=''
-                        onChangeText={(text) => { }}
+                        value={form.email}
+                        onChangeText={(text) => { setForm({ ...form , email : text}) }}
                         label='Email'
                         keyboardType='email-address'
                     />
 
                     <CustomInput
                         placeholder='Enter your password'
-                        value=''
-                        onChangeText={(text) => { }}
+                        value={form.password}
+                        onChangeText={(text) => ( setForm({ ...form , password : text}) )}
                         label='Password'
-                        keyboardType='email-address'
                         secureTextEntry={true}
                     />
 
-                    <CustomButton />
+                    <CustomButton title='Signin' onPress={submit}/>
                 </View>
                 <View style={{ alignItems: 'center',flexDirection : 'row',justifyContent : 'center',gap:5,marginTop : 10 }}>
                     <Text>
