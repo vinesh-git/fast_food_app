@@ -69,7 +69,11 @@ const signUp = () => {
             secureTextEntry={true}
           />
 
-          <CustomButton title="Signup" onPress={submit}/>
+          <CustomButton
+            title="Signup"
+            onPress={submit}
+            isLoading={isSubmitting}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

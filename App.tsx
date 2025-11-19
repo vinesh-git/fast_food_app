@@ -11,7 +11,12 @@ import signUp from "./screens/auth/signUp";
 function BottomTabs(){
     const Tab = createBottomTabNavigator();
     return(
-        <Tab.Navigator screenOptions={{headerShown : false}}>
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarStyle: {
+                backgroundColor : '#ffffff'
+            }
+        }}>
             <Tab.Screen component={Home} name="Home" />
             <Tab.Screen component={Search} name="Search" />
             <Tab.Screen component={Cart} name="Cart" />

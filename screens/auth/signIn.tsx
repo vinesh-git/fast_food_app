@@ -20,7 +20,10 @@ function SignIn() {
         setIsSubmitting(true);
         try {
             //login logic here
-            navigation.replace("tabs",{ screen : "Home"});
+            setTimeout(() => {
+                navigation.replace("tabs", { screen: "Home" });
+            }, 5000);
+            
         } catch (error) {
             console.log(error);
         } finally {
@@ -48,7 +51,7 @@ function SignIn() {
                         secureTextEntry={true}
                     />
 
-                    <CustomButton title='Signin' onPress={submit}/>
+                    <CustomButton title='Signin' onPress={submit} isLoading={isSubmitting} />
                 </View>
                 <View style={{ alignItems: 'center',flexDirection : 'row',justifyContent : 'center',gap:5,marginTop : 10 }}>
                     <Text>
