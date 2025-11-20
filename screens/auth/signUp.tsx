@@ -4,12 +4,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Pressable,
+  Alert,
 } from "react-native";
 import React from "react";
 import TopSection from "@/components/AuthPage/TopSection";
 import { useNavigation } from "@react-navigation/native";
 import CustomInput from "@/components/Input/CustomInput";
 import CustomButton from "@/components/Button/CustomButton";
+import { createUser } from "@/lib/appwrite";
 
 const signUp = () => {
   const navigation = useNavigation<any>();
@@ -20,17 +23,18 @@ const signUp = () => {
   });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const submit = async () => {
+    const {name,email,password} = form;
     if (isSubmitting) return;
-    if (!form.name || !form.email || !form.password) {
+    if (!name || !email || !password) {
       alert("Please fill all the fields");
       return;
     }
     setIsSubmitting(true);
     try {
-      //login logic here
+      await createUser({name,email,password});
       navigation.replace("Signin");
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      Alert.alert("Error",error.message)
     } finally {
       setIsSubmitting(false);
     }
@@ -74,6 +78,14 @@ const signUp = () => {
             onPress={submit}
             isLoading={isSubmitting}
           />
+        </View>
+        <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 5, marginTop: 10 }}>
+          <Text>
+            Already have an account?
+          </Text>
+          <Pressable onPress={() => navigation.navigate("Signin")}>
+            <Text style={{ color: "#fe8c00", fontWeight: 800 }}>Sign In</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -4,27 +4,31 @@ import CustomInput from '@/components/Input/CustomInput'
 import CustomButton from '@/components/Button/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import TopSection from '@/components/AuthPage/TopSection'
+import * as Sentry from '@sentry/react-native'
+import { signIn } from '@/lib/appwrite'
+import useAuthStore from '@/store/auth.store'
 function SignIn() {
+    const {isAuthenticated} = useAuthStore();
     const navigation = useNavigation<any>();
-    const [form,setForm] = React.useState({
-        email : '',
-        password : ''
+    if(isAuthenticated) navigation.replace("tabs", { screen: "Home" })
+    const [form, setForm] = React.useState({
+        email: '',
+        password: ''
     });
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const submit = async () => {
+        const {email,password} = form;
         if (isSubmitting) return;
-        if(!form.email || !form.password){
+        if (!form.email || !form.password) {
             alert("Please fill all the fields");
             return;
         }
         setIsSubmitting(true);
         try {
-            //login logic here
-            setTimeout(() => {
-                navigation.replace("tabs", { screen: "Home" });
-            }, 5000);
-            
-        } catch (error) {
+            signIn({email,password});
+            navigation.replace("tabs", { screen: "Home" });
+        } catch (error:any) {
+            Sentry.captureEvent(error);
             console.log(error);
         } finally {
             setIsSubmitting(false);
@@ -38,7 +42,7 @@ function SignIn() {
                     <CustomInput
                         placeholder='Enter your email'
                         value={form.email}
-                        onChangeText={(text) => { setForm({ ...form , email : text}) }}
+                        onChangeText={(text) => { setForm({ ...form, email: text }) }}
                         label='Email'
                         keyboardType='email-address'
                     />
@@ -46,14 +50,14 @@ function SignIn() {
                     <CustomInput
                         placeholder='Enter your password'
                         value={form.password}
-                        onChangeText={(text) => ( setForm({ ...form , password : text}) )}
+                        onChangeText={(text) => (setForm({ ...form, password: text }))}
                         label='Password'
                         secureTextEntry={true}
                     />
 
                     <CustomButton title='Signin' onPress={submit} isLoading={isSubmitting} />
                 </View>
-                <View style={{ alignItems: 'center',flexDirection : 'row',justifyContent : 'center',gap:5,marginTop : 10 }}>
+                <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 5, marginTop: 10 }}>
                     <Text>
                         Don't have an account?
                     </Text>

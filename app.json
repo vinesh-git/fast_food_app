@@ -22,7 +22,6 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
@@ -38,6 +37,14 @@
           "dark": {
             "backgroundColor": "#000000"
           }
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "reactnative_food_ordering",
+          "organization": "faefw"
         }
       ]
     ],

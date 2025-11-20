@@ -17,3 +17,14 @@ interface CustomButtonProps{
     leftIcon? : React.ReactNode,
     isLoading? : boolean
 }
+
+interface CreateUserParams{
+    name : string,
+    email : string,
+    password : string
+}
+
+interface SignInParams{
+    email : string,
+    password : string
+}
