@@ -13,9 +13,11 @@ import { useNavigation } from "@react-navigation/native";
 import CustomInput from "@/components/Input/CustomInput";
 import CustomButton from "@/components/Button/CustomButton";
 import { createUser } from "@/lib/appwrite";
+import useAuthStore from "@/store/auth.store";
 
 const signUp = () => {
   const navigation = useNavigation<any>();
+  const {setIsAuthenticated} = useAuthStore();
   const [form, setForm] = React.useState({
     name: "",
     email: "",
@@ -31,7 +33,9 @@ const signUp = () => {
     }
     setIsSubmitting(true);
     try {
-      await createUser({name,email,password});
+      const result = await createUser({name,email,password});
+      if(result)
+          setIsAuthenticated(true);
       navigation.replace("Signin");
     } catch (error:any) {
       Alert.alert("Error",error.message)

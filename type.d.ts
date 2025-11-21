@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native"
+import { ImageSourcePropType, ViewStyle } from "react-native"
 
 interface CustomInputProps {
     placeholder? : string,
@@ -27,4 +27,10 @@ interface CreateUserParams{
 interface SignInParams{
     email : string,
     password : string
+}
+
+interface TabProps{
+    focused : boolean,
+    title : string,
+    icon : ImageSourcePropType
 }

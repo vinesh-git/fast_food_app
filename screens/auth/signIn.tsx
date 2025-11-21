@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native'
+import { Alert, Dimensions, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native'
 import CustomInput from '@/components/Input/CustomInput'
 import CustomButton from '@/components/Button/CustomButton'
 import { useNavigation } from '@react-navigation/native'
@@ -8,9 +8,9 @@ import * as Sentry from '@sentry/react-native'
 import { signIn } from '@/lib/appwrite'
 import useAuthStore from '@/store/auth.store'
 function SignIn() {
-    const {isAuthenticated} = useAuthStore();
+    const {isAuthenticated,setIsAuthenticated} = useAuthStore();
     const navigation = useNavigation<any>();
-    if(isAuthenticated) navigation.replace("tabs", { screen: "Home" })
+    //if(isAuthenticated) navigation.replace("tabs", { screen: "Home" })
     const [form, setForm] = React.useState({
         email: '',
         password: ''
@@ -25,8 +25,12 @@ function SignIn() {
         }
         setIsSubmitting(true);
         try {
-            signIn({email,password});
-            navigation.replace("tabs", { screen: "Home" });
+            const result = await signIn({email,password});
+            if(!result) {
+                Alert.alert("Error","try again");
+                return;
+            }
+            setIsAuthenticated(true);
         } catch (error:any) {
             Sentry.captureEvent(error);
             console.log(error);

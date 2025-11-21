@@ -9,7 +9,7 @@ type AuthState = {
     setIsAuthenticated : (value:boolean) => void,
     setUser : (user : any) => void,
     setLoading : (loading : boolean) => void 
-    fetchAuthenticatedUser : ()=> Promise<void>;
+    fetchAuthenticatedUser : ()=> void;
 }
 
 
