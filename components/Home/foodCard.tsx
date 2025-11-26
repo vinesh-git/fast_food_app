@@ -9,7 +9,7 @@ const Foodcard = ({item,index}:{item:FoodType,index:number}) => {
         <View>
             <Pressable android_ripple={{ color: 'red' }} style={[{ backgroundColor: item.color, height: 200, margin: 10, borderRadius: 10, flex: 1, flexDirection: 'row' }, iseven ? { flexDirection: "row" } : { flexDirection: 'row-reverse' }]} >
                 {({ pressed }) => (
-                    <Fragment>
+                    <>
                         <View style={{ height: '100%', width: '50%' }}>
                             <Image source={item.image} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
                         </View>
@@ -17,7 +17,7 @@ const Foodcard = ({item,index}:{item:FoodType,index:number}) => {
                             <Text style={{ color: '#ffffff', fontWeight: 800, fontSize: 24 }}>{item.title}</Text>
                             <Image source={cta} resizeMode="contain" tintColor='#ffffff' />
                         </View>
-                    </Fragment>
+                    </>
                 )}
             </Pressable>
         </View>

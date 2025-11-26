@@ -20,7 +20,6 @@ const style = StyleSheet.create({
         width: 40, 
         borderRadius: 50, 
         backgroundColor: "#000000", 
-        flex: 1, 
         justifyContent: "center", 
         alignItems: "center" 
     },

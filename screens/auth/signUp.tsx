@@ -46,8 +46,7 @@ const signUp = () => {
   return (
     <KeyboardAvoidingView
       style={{ backgroundColor: "#ffffff", flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+      behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <TopSection />
         <View style={{ padding: 15, gap: 20 }}>

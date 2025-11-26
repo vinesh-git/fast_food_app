@@ -34,3 +34,20 @@ interface TabProps{
     title : string,
     icon : ImageSourcePropType
 }
+
+interface GetMenuParams {
+    category?: string;
+    query?: string;
+    limit? : number
+}
+
+interface MenuItem {
+    name : string,
+    price : number,
+    url : string,
+    description : string,
+    calories : number,
+    protein : number,
+    rating : number,
+    type : string,
+}
