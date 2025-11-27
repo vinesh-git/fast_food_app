@@ -1,18 +1,23 @@
 import FoodCart from "@/components/Home/foodCart";
+import Filter from "@/components/search/Filter";
 import MenuCard from "@/components/search/MenuCard";
+import SearchBar from "@/components/search/SearchBar";
 import { getCategories, getMenu } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
-import { MenuItem } from "@/type";
-import { useLocalSearchParams } from "expo-router";
+import { Category, MenuItem, RootStackParamList } from "@/type";
+import { RouteProp, useRoute } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-function Search() {
-  const { category, query } = useLocalSearchParams<{
-    category?: string;
-    query?: string;
-  }>();
 
+
+
+type SearchRouteProp = RouteProp<RootStackParamList, 'Filter'>;
+
+function Search() {
+  const route = useRoute<SearchRouteProp>();
+  const { category, query } = route.params ?? {};
+  console.log("category param is ", category)
   const { data, loading, error, refetch } = useAppwrite({
     fn: getMenu,
     params: { category: category!, query: query!, limit: 6 },
@@ -22,25 +27,25 @@ function Search() {
   useEffect(() => {
     refetch({ category: category!, query: query!, limit: 6 });
   }, [category, query]);
-   console.log(data);
+  // console.log(data);
   return (
-    <SafeAreaView style={{ backgroundColor: "#ffffff", flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: "#ffffff", height: '100%' }}>
       <FlatList
         data={data}
         renderItem={({ item, index }) => {
           const isFirstright = index % 2 === 0;
           return (
-            <View style={[!isFirstright ? {transform : [{translateY : 50}] } : {transform : [{translateY : 0}] },{flex : 1,padding : 10}]}>
-              <MenuCard item={item as unknown as MenuItem}/>
+            <View style={[!isFirstright ? { transform: [{ translateY: 70 }] } : { transform: [{ translateY: 0 }] }, { flex: 1, padding: 10 }]}>
+              <MenuCard item={item as unknown as MenuItem} />
             </View>
           )
         }}
         numColumns={2}
         keyExtractor={(item) => item.$id}
-        columnWrapperStyle = {{
-          gap : 20
+        columnWrapperStyle={{
+          gap: 20
         }}
-        contentContainerStyle = {{gap : 40}}
+        contentContainerStyle={{ gap: 40 }}
         ListHeaderComponent={() => (
           <View style={{ margin: 10, gap: 10 }}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -50,8 +55,10 @@ function Search() {
               </View>
               <FoodCart />
             </View>
-            <Text>Search Input</Text>
-            <Text>Filter</Text>
+            <View style ={{gap : 10}}>
+              <SearchBar />
+              <Filter categories={categories as unknown as Category[]} />
+            </View>
           </View>
         )}
         ListEmptyComponent={() => !loading && <Text>No content</Text>}

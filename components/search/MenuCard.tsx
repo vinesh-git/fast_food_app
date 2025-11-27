@@ -34,7 +34,7 @@ export const style = StyleSheet.create({
         backgroundColor: '#ffffff',
         flex:1,
         justifyContent : 'flex-end',
-        minWidth : 180,
+        width : 180,
         minHeight : 190
     },
     image: {

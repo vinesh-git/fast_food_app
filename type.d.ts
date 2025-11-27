@@ -51,3 +51,19 @@ interface MenuItem {
     rating : number,
     type : string,
 }
+
+interface Category{
+    name : string,
+    description : string
+}
+
+export type RootStackParamList = {
+  Filter : {
+    category? : string,
+    query? : string
+  }  | undefined,
+
+  Search : {
+    query? : string
+  }
+}
