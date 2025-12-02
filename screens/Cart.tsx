@@ -36,7 +36,7 @@ function Cart() {
       <FlatList
         data={items}
         renderItem={({ item }) => <CartItem item={item} />}
-        ListFooterComponent={() => (
+        ListFooterComponent={() => totalItems>0 && (
           <View style={{ gap: 10, padding: 10 }}>
             <View
               style={{

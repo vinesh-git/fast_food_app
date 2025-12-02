@@ -1,4 +1,4 @@
-import { CartCustomization, CartItemType, CartStore } from "@/type";
+import { CartCustomization, CartStore } from "@/type";
 import { create } from "zustand";
 
 const areCustomizationEqual = (a : CartCustomization[], b:CartCustomization[]) : boolean => {
@@ -38,7 +38,7 @@ const useCartStore = create<CartStore>((set,get)=>({
     },
     decreaseQty : (id, customizations =[])=>{
         set({
-            items : get().items.map(item => id===item.$id && areCustomizationEqual(item.customizations ?? [],customizations) ? {...item, quantity : item.quantity-1} : item)
+            items : get().items.map(item => id===item.$id && areCustomizationEqual(item.customizations ?? [],customizations) ? ((item.quantity>0) ? {...item, quantity : item.quantity-1} : item) : item)
         })
     },
     clearCart : ()=> set({items : []}),

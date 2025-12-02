@@ -1,3 +1,4 @@
+import useCartStore from "@/store/cart.store";
 import { CartItemType } from "@/type";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
@@ -7,6 +8,7 @@ import plus from "../../assets/images/plus.png";
 
 const CartItem = ({ item }: { item: CartItemType }) => {
     const { $id, name, quantity, image_url, price, customizations } = item;
+    const { increaseQty,decreaseQty,removeItem} = useCartStore();
     return (
         <View
             style={{
@@ -48,7 +50,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
                             gap: 15,
                         }}
                     >
-                        <Pressable>
+                        <Pressable onPress={()=> decreaseQty($id,[])}>
                             <Image
                                 source={minus}
                                 resizeMode="contain"
@@ -56,7 +58,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
                             />
                         </Pressable>
                         <Text>{quantity}</Text>
-                        <Pressable>
+                        <Pressable onPress={()=> increaseQty($id,[])}>
                             <Image
                                 source={plus}
                                 resizeMode="contain"
@@ -64,7 +66,7 @@ const CartItem = ({ item }: { item: CartItemType }) => {
                             />
                         </Pressable>
                     </View>
-                    <Pressable>
+                    <Pressable onPress={()=> removeItem($id,[])}>
                         <Image
                             source={deleteIcon}
                             style={{ width: 15, height: 15 }}
