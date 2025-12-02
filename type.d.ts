@@ -42,7 +42,7 @@ interface GetMenuParams {
 }
 
 interface MenuItem {
-    id : string,
+    $id : string,
     name : string,
     price : number,
     url : string,
@@ -59,14 +59,14 @@ interface Category{
 }
 
 interface CartCustomization{
-    id : string,
+    $id : string,
     name : string,
     price : number,
     type : string
 }
 
 interface CartItemType{
-    id : string,
+    $id : string,
     name : string,
     quantity : number,
     image_url : string,

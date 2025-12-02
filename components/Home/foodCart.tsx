@@ -1,11 +1,13 @@
-import { Image, TouchableOpacity, View, Text, StyleSheet } from "react-native";
-import bag from '../../assets/images/bag.png'
 import useCartStore from "@/store/cart.store";
+import { useNavigation } from "@react-navigation/native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import bag from '../../assets/images/bag.png';
 function FoodCart() {
+    const navigation = useNavigation<any>();
     const {getTotalItems} = useCartStore();
     const totalItems = getTotalItems();
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> navigation.navigate('Cart')}>
             <View style={style.container}>
                 {totalItems > 0 && (<Text style={style.items}>{totalItems}</Text>)}
                 <Image source={bag} />

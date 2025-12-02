@@ -27,7 +27,7 @@ function Search() {
   useEffect(() => {
     refetch({ category: category!, query: query!, limit: 6 });
   }, [category, query]);
-  // console.log(data);
+  // console.log(data[0]);
   return (
     <SafeAreaView style={style.safeareaView}>
       <FlatList

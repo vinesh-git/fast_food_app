@@ -3,21 +3,21 @@ import { create } from "zustand";
 
 const areCustomizationEqual = (a : CartCustomization[], b:CartCustomization[]) : boolean => {
     if(a.length!==b.length) return false;
-    const asorted = a.sort((x,y)=> x.id.localeCompare(y.id));
-    const bsorted = b.sort((x,y)=> x.id.localeCompare(y.id));
+    const asorted = a.sort((x, y) => x.$id.localeCompare(y.$id));
+    const bsorted = b.sort((x, y) => x.$id.localeCompare(y.$id));
 
-    return asorted.every((item,index) => item.id === bsorted[index].id);
+    return asorted.every((item,index) => item.$id === bsorted[index].$id);
 }
 
 const useCartStore = create<CartStore>((set,get)=>({
     items : [],
     addItem : (item)=>{
         const customizations = item.customizations ?? [];
-        const existing = get().items.find(i => i.id=== item.id && areCustomizationEqual(customizations,i.customizations ?? [])) ;
+        const existing = get().items.find(i => i.$id=== item.$id && areCustomizationEqual(customizations,i.customizations ?? [])) ;
         console.log("is item exists",existing);
         if(existing){
             set({
-                items : get().items.map((i)=> i.id===item.id && areCustomizationEqual(i.customizations ?? [],customizations) ? {...i, quantity : i.quantity+1} : i)
+                items : get().items.map((i)=> i.$id===item.$id && areCustomizationEqual(i.customizations ?? [],customizations) ? {...i, quantity : i.quantity+1} : i)
             })
         }
         else{
@@ -28,17 +28,17 @@ const useCartStore = create<CartStore>((set,get)=>({
     },
     removeItem : (id, customizations=[])=>{
         set({
-            items : get().items.filter(item => !(item.id===id && areCustomizationEqual(item.customizations ?? [] , customizations)))
+            items : get().items.filter(item => !(item.$id===id && areCustomizationEqual(item.customizations ?? [] , customizations)))
         });
     },
     increaseQty : (id,customizations=[])=>{
         set({
-            items : get().items.map(item => item.id===id && areCustomizationEqual(item.customizations ?? [],customizations) ? {...item,quantity : item.quantity+1} : item)
+            items : get().items.map(item => item.$id===id && areCustomizationEqual(item.customizations ?? [],customizations) ? {...item,quantity : item.quantity+1} : item)
         })
     },
     decreaseQty : (id, customizations =[])=>{
         set({
-            items : get().items.map(item => id===item.id && areCustomizationEqual(item.customizations ?? [],customizations) ? {...item, quantity : item.quantity-1} : item)
+            items : get().items.map(item => id===item.$id && areCustomizationEqual(item.customizations ?? [],customizations) ? {...item, quantity : item.quantity-1} : item)
         })
     },
     clearCart : ()=> set({items : []}),

@@ -12,7 +12,7 @@ const MenuCard = ({ item }: { item: MenuItem }) => {
             <Image source={{ uri: image_url }} style={style.image} resizeMode='contain' />
             <Text style={style.nameText} numberOfLines={1}>{item.name}</Text>
             <Text style={style.priceText}>From ${item.price}</Text>
-            <TouchableOpacity onPress={() => addItem({id : item.id,name : item.name,price : item.price, customizations : [],image_url : item.url})}>
+            <TouchableOpacity onPress={() => addItem({$id : item.$id,name : item.name,price : item.price, customizations : [],image_url : item.url})}>
                 <Text style={style.addToCart}>Add to cart +</Text>
             </TouchableOpacity>
         </TouchableOpacity>
