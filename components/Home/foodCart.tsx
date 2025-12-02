@@ -1,7 +1,9 @@
 import { Image, TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import bag from '../../assets/images/bag.png'
+import useCartStore from "@/store/cart.store";
 function FoodCart() {
-    const totalItems: number = 5;
+    const {getTotalItems} = useCartStore();
+    const totalItems = getTotalItems();
     return (
         <TouchableOpacity>
             <View style={style.container}>

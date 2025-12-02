@@ -2,16 +2,18 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import { MenuItem } from '@/type'
 import { appwriteConfig } from '@/lib/appwrite'
+import useCartStore from '@/store/cart.store'
 
 const MenuCard = ({ item }: { item: MenuItem }) => {
     const image_url = `${item.url}?project=${appwriteConfig.projectId}`;
+    const {addItem} = useCartStore();
     return (
         <TouchableOpacity style={style.container}>
             <Image source={{ uri: image_url }} style={style.image} resizeMode='contain' />
-            <Text style={{fontSize : 16, fontWeight : 800, textAlign: 'center', marginBottom: 5, marginTop : 10 }} numberOfLines={1}>{item.name}</Text>
-            <Text style={{ textAlign: 'center', marginBottom: 5 }}>From ${item.price}</Text>
-            <TouchableOpacity onPress={() => { }}>
-                <Text style={{ textAlign: 'center', marginBottom: 5, fontWeight: 800, color: '#FE8C00' }}>Add to cart +</Text>
+            <Text style={style.nameText} numberOfLines={1}>{item.name}</Text>
+            <Text style={style.priceText}>From ${item.price}</Text>
+            <TouchableOpacity onPress={() => addItem({id : item.id,name : item.name,price : item.price, customizations : [],image_url : item.url})}>
+                <Text style={style.addToCart}>Add to cart +</Text>
             </TouchableOpacity>
         </TouchableOpacity>
     )
@@ -43,5 +45,22 @@ export const style = StyleSheet.create({
         position : 'absolute',
         top : -30,
         marginBottom : 10
+    },
+    addToCart : { 
+        textAlign: 'center', 
+        marginBottom: 5, 
+        fontWeight: 800, 
+        color: '#FE8C00' 
+    },
+    priceText : { 
+        textAlign: 'center', 
+        marginBottom: 5 
+    },
+    nameText : {
+        fontSize : 16,
+        fontWeight : 800, 
+        textAlign: 'center', 
+        marginBottom: 5, 
+        marginTop : 10 
     }
 })

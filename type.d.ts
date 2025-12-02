@@ -42,6 +42,7 @@ interface GetMenuParams {
 }
 
 interface MenuItem {
+    id : string,
     name : string,
     price : number,
     url : string,
@@ -55,6 +56,33 @@ interface MenuItem {
 interface Category{
     name : string,
     description : string
+}
+
+interface CartCustomization{
+    id : string,
+    name : string,
+    price : number,
+    type : string
+}
+
+interface CartItemType{
+    id : string,
+    name : string,
+    quantity : number,
+    image_url : string,
+    price : number,
+    customizations? : CartCustomization[]
+}
+
+interface CartStore{
+    items : CartItemType[],
+    addItem : (item : Omit<CartItemType,"quantity">)=> void,
+    removeItem : (id : string,customizations : CartCustomization[])=>void,
+    increaseQty : (id : string,customizations : CartCustomization[]) => void,
+    decreaseQty : (id : string,customizations : CartCustomization[])=>void ,
+    clearCart : ()=>void,
+    getTotalItems : ()=> number,
+    getTotalPrice : ()=> number
 }
 
 export type RootStackParamList = {

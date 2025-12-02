@@ -1,5 +1,5 @@
 import useAuthStore from '@/store/auth.store';
-import { CreateUserParams, GetMenuParams, SignInParams } from '@/type';
+import { Category, CreateUserParams, GetMenuParams, SignInParams } from '@/type';
 import { Alert } from 'react-native';
 import {Account, Avatars, Client, Storage, ID, Query, TablesDB} from 'react-native-appwrite'
 export const appwriteConfig = {
@@ -113,13 +113,13 @@ export const getMenu = async ({category,query,limit} : GetMenuParams) =>{
     }
 }
 
-export const getCategories = async () => {
+export const getCategories = async ()=> {
     try {
         const categories = await tablesDB.listRows({
             databaseId : appwriteConfig.databaseId,
             tableId : appwriteConfig.categoriesCollectionId
         })
-        return categories.rows;
+        return categories.rows ;
     } catch (error:any) {
         Alert.alert("Error",error.message);
         throw new Error(error);

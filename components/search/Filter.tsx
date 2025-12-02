@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Category, RootStackParamList } from '@/type'
 import { RouteProp, useNavigation, useRoute,  } from '@react-navigation/native'
@@ -9,8 +9,8 @@ const Filter = ({categories}:{categories : Category[]}) => {
     const route = useRoute<SearchRouteProp>()
     const navigation = useNavigation<SerachNavProp>();
     const searchParams = route.params ?? {};
-    console.log("Search params " ,searchParams?.category);
-    console.log("Search params categories" ,searchParams);
+    // console.log("Search params " ,searchParams?.category);
+    // console.log("Search params categories" ,searchParams);
     const [active,setActive] = useState((searchParams.category ?? "") || '');
     
     const handlepress = (id : string) =>{
@@ -40,9 +40,16 @@ const Filter = ({categories}:{categories : Category[]}) => {
         )}
         horizontal 
         showsHorizontalScrollIndicator = {false}
-        contentContainerStyle = {{gap : 20,paddingHorizontal : 10}}
+        contentContainerStyle = {style.contentContainer}
     />
   )
 }
 
 export default Filter
+
+const style = StyleSheet.create({
+    contentContainer : {
+        gap : 20,
+        paddingHorizontal : 10
+    }
+})
