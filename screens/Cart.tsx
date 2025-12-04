@@ -2,8 +2,9 @@ import CustomButton from "@/components/Button/CustomButton";
 import CartItem from "@/components/Cart/CartItem";
 import useCartStore from "@/store/cart.store";
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import noitem from '../assets/images/noCartItem.png'
 
 
 const PaymentInfo = ({
@@ -36,11 +37,12 @@ function Cart() {
       <FlatList
         data={items}
         renderItem={({ item }) => <CartItem item={item} />}
+        ListHeaderComponent={()=> <Text style={{fontSize : 20, fontWeight : 800,textAlign : "center", marginVertical : 10,color:'#FE8C00'}}>Cart</Text>}
         ListFooterComponent={() => totalItems>0 && (
-          <View style={{ gap: 10, padding: 10 }}>
+          <View style={{ gap: 10, padding: 10 ,marginBottom : 100}}>
             <View
               style={{
-                borderWidth: 1,
+                borderWidth: 2,
                 borderColor: "#EDEDED",
                 padding: 20,
                 gap: 10,
@@ -72,7 +74,14 @@ function Cart() {
             </View>
             <CustomButton title="Order Now" />
           </View>
-        )}
+        
+    )}
+    ListEmptyComponent={()=>totalItems ==0 && (
+        <View style={{flex : 1,flexDirection : 'column', justifyContent : 'center',alignItems : 'center'}}>
+            <Image source={noitem} resizeMode="contain" style={{alignSelf:'center', marginTop : 100,  width : 178,height : 129}} />
+            <Text style={{color : '#181C2E',fontSize : 20, fontWeight : 700}}>No items in your cart</Text>
+        </View>
+    )}
       />
     </SafeAreaView>
   );

@@ -61,7 +61,7 @@ function Search() {
             </View>
           </View>
         )}
-        ListEmptyComponent={() => !loading && <Text style={{textAlign : 'center'}}>No content</Text>}
+        ListEmptyComponent={() => !loading && <Text style={{ textAlign: 'center' }}>No content</Text>}
       />
     </SafeAreaView>
   );
@@ -74,21 +74,21 @@ const style = StyleSheet.create({
     backgroundColor: "#ffffff",
     height: '100%'
   },
-  exteriorHeaderContainer : { 
-    margin: 10, 
-    gap: 10 
+  exteriorHeaderContainer: {
+    margin: 10,
+    gap: 10
   },
-  flexHeaderContainer : { 
-    flex: 1, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between' 
+  flexHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-  interiorHeaderContainer : { 
-    justifyContent: "flex-start", 
-    gap: 5 
+  interiorHeaderContainer: {
+    justifyContent: "flex-start",
+    gap: 5
   },
-  searchText : { 
-    color: "#FE8C00", 
-    fontWeight: 600 
+  searchText: {
+    color: "#FE8C00",
+    fontWeight: 600
   }
 })

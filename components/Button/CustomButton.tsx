@@ -11,7 +11,7 @@ const CustomButton = ({
     isLoading = false
 }: CustomButtonProps) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[style, { flex: 1, flexDirection: 'row', justifyContent: 'center', backgroundColor: '#fe8c00', padding: 10, borderRadius: 50,marginVertical : 10}]}>
+        <TouchableOpacity onPress={onPress} style={[style, {flex: 1,alignSelf : 'center', flexDirection: 'row', justifyContent: 'center', backgroundColor: '#fe8c00', padding: 10, borderRadius: 50,marginVertical : 10}]}>
             {leftIcon}
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                 {isLoading ?
