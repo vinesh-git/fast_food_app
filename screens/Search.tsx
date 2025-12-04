@@ -7,9 +7,9 @@ import useAppwrite from "@/lib/useAppwrite";
 import { Category, MenuItem, RootStackParamList } from "@/type";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import noitem from '../assets/images/noCartItem.png'
 
 
 type SearchRouteProp = RouteProp<RootStackParamList, 'Filter'>;
@@ -61,7 +61,12 @@ function Search() {
             </View>
           </View>
         )}
-        ListEmptyComponent={() => !loading && <Text style={{ textAlign: 'center' }}>No content</Text>}
+        ListEmptyComponent={() => !loading && (
+          <View style={{flex : 1,flexDirection : 'column', justifyContent : 'center',alignItems : 'center'}}>
+            <Image source={noitem} resizeMode="contain" style={{alignSelf:'center', marginTop : 100,  width : 178,height : 129}} />
+            <Text style={{color : '#181C2E',fontSize : 20, fontWeight : 700}}>No items in your cart</Text>
+        </View>
+        )}
       />
     </SafeAreaView>
   );
